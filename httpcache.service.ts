@@ -44,7 +44,7 @@ export class HTTPCacheService {
         })
       );
   }
-  get(url : string): Observable<any> {
+  get<T>(url : string): Observable<{data: T}> {
     const parsedUrl = new URL(url);
     const domain = `${parsedUrl.protocol}//${parsedUrl.host}`;
     const filename = parsedUrl.pathname.substring(1) + parsedUrl.search;
