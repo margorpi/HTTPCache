@@ -14,7 +14,7 @@ export class AppComponent {
   message : string = '';
   constructor(private http : HTTPCacheService){}
   getData() : void{
-    this.http.get('http://127.0.0.1/test.json').subscribe({next : (data) => {
+    this.http.get<string>('http://127.0.0.1/test.json').subscribe({next : (data) => {
       console.log('subscribe data');
       console.log(data);
       this.message = data.message;

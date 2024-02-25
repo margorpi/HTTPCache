@@ -8,7 +8,6 @@ import { switchMap, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class HTTPCacheService {
-  data : any = null;
   constructor(private localCacheService : LocalCacheService, private http: HttpClient) { }
   private async loadFileFromCache(filename : string) : Promise<any>{
     let cache = null;
@@ -32,7 +31,7 @@ export class HTTPCacheService {
     return this.http.get<any>(`${domain}/${filename}`, { headers: headers, observe: 'response' })
       .pipe(map(response => {
           console.log('map to write cache');
-          from(this.saveFileToCache(filename, response.headers.get('ETag')!, response.body)).subscribe();
+          this.saveFileToCache(filename, response.headers.get('ETag'), response.body)
           return response.body;
         }),
         catchError((error: HttpErrorResponse) => {
